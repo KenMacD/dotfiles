@@ -1,0 +1,22 @@
+[user]
+	name = Kenny MacDermid
+	email = kenny.macdermid@gmail.com
+[clean]
+	requireForce = true
+[color]
+	status = auto
+	diff = auto
+	branch = auto
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+	cp = cherry-pick
+[status]
+	showUntrackedFiles = no
+[branch]
+	autosetuprebase = local
+[mergetool]
+	keepBackup = true
+[push]
+	default = simple
