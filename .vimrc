@@ -8,3 +8,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 filetype plugin indent on
+
+syntax on
+set bg=dark
