@@ -1,0 +1,16 @@
+# How to install and work with dotfiles.
+
+mkdir -p /home/kenny/src/dotfiles
+git clone --bare https://github.com/kenmacd/dotfiles.git /home/kenny/src/dotfiles
+
+# De-bare the repo
+git --git-dir=/home/kenny/src/dotfiles/ config core.bare false
+git --git-dir=/home/kenny/src/dotfiles/ config core.worktree "/home/kenny/"
+
+# Checkout master (may need -f, but it'll overwrite existing)
+git --git-dir=/home/kenny/src/dotfiles/ checkout master
+
+# Setup Vundle
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+
+# To work with files use 'git.' alias.
