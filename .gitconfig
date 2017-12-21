@@ -12,11 +12,22 @@
 	ci = commit
 	co = checkout
 	cp = cherry-pick
+	ri = rebase --interactive --autosquash
 [status]
 	showUntrackedFiles = no
 [branch]
 	autosetuprebase = local
 [mergetool]
 	keepBackup = true
+[merge]
+	tool = meld
 [push]
 	default = simple
+[pull]
+	ff = only
+[help]
+	autocorrect = 1
+[rerere]
+	enabled = true
+[rebase]
+	autoStash = true
