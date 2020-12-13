@@ -1,0 +1,130 @@
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $term kitty
+set $menu dmenu_path | wofi --show drun -i | xargs swaymsg exec --
+
+output DP-3 position 0,0
+output DP-4 position 2560,0
+output DP-5 position 0,0
+output DP-6 position 2560,0
+output DP-7 position 2560,0
+output eDP-1 position 1488,1440
+
+# TODO: Make middle click disabled?
+# Maybe for now `xinput set-button map [4,6,7] 1 1 3
+input "1739:0:Synaptics_TM3289-002" {
+	middle_emulation enabled
+}
+
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec $menu
+bindsym $mod+Escape exec swaylock -c 000000
+bindsym $mod+Shift+c+r reload
+bindsym $mod+Shift+e exit
+
+bindsym $mod+$left focus left
+bindsym $mod+Left focus left
+
+bindsym $mod+$down focus down
+bindsym $mod+Down focus down
+
+bindsym $mod+$up focus up
+bindsym $mod+Up focus up
+
+bindsym $mod+$right focus right
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+Left move left
+
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+Down move down
+
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+Up move up
+
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Right move right
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# Move workspace to another output:
+bindsym $mod+m move workspace to output up
+bindsym $mod+n move workspace to output down
+bindsym $mod+Shift+greater move workspace to output right
+bindsym $mod+Shift+less move workspace to output left
+
+bindsym $mod+semicolon splith
+bindsym $mod+slash splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+
+mode "resize" {
+    bindsym $left resize shrink width 10 px or 10 ppt
+    bindsym Left resize shrink width 10 px or 10 ppt
+
+    bindsym $down resize grow height 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+
+    bindsym $up resize shrink height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+
+    bindsym $right resize grow width 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+bar {
+    swaybar_command waybar
+}
+
+include /etc/sway/config.d/*
