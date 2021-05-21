@@ -34,6 +34,19 @@
     ];
   };
 
+  systemd.coredump.extraConfig = ''
+#Storage=external
+#Compress=yes
+#ProcessSizeMax=2G
+ProcessSizeMax=10G
+#ExternalSizeMax=2G
+ExternalSizeMax=10G
+#JournalSizeMax=767M
+#MaxUse=
+#KeepFree=
+'';
+
+
   networking.hostName = "dn";
   networking.hostId = "822380ad";
   networking.wireless.enable = false;
