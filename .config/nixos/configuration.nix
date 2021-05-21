@@ -10,6 +10,9 @@
   environment.etc.current-nixos-config.source = ./.;
   environment.variables.EDITOR = "vim";
 
+  # Allow edit of /etc/host for temporary mitm:
+  environment.etc.hosts.mode = "0644";
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
