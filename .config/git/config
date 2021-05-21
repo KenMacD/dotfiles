@@ -1,12 +1,9 @@
 [user]
 	name = Kenny MacDermid
 	email = kenny.macdermid@gmail.com
+	signingkey = 88B5D54B9ACB2F23
 [clean]
 	requireForce = true
-[color]
-	status = auto
-	diff = auto
-	branch = auto
 [alias]
 	st = status
 	ci = commit
@@ -14,15 +11,17 @@
 	cp = cherry-pick
 	ri = rebase --interactive --autosquash
 [status]
-	showUntrackedFiles = no
+	submoduleSummary = true
+#	showUntrackedFiles = no
 [branch]
 	autosetuprebase = local
 [mergetool]
 	keepBackup = true
 [merge]
 	tool = meld
-[push]
-	default = simple
+[gui]
+	fontui = -family \"Bitstream Vera Sans\" -size 20 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"Bitstream Vera Sans Mono\" -size 20 -weight normal -slant roman -underline 0 -overstrike 0
 [pull]
 	ff = only
 [help]
@@ -31,3 +30,8 @@
 	enabled = true
 [rebase]
 	autoStash = true
+	autosquash = true
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = main
