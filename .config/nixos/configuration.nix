@@ -151,6 +151,7 @@ ExternalSizeMax=10G
     pulseaudio  # for pactl to adjust volume, other options?
     tmux
     vim
+    xdg-utils
     yubikey-manager
     yubikey-personalization
 
@@ -160,6 +161,7 @@ ExternalSizeMax=10G
     sqlite
 
     # Development
+    any-nix-shell
     aws-adfs
     awscli2
     capnproto
@@ -167,9 +169,12 @@ ExternalSizeMax=10G
     file
     gdb
     gnumake
+    jq
     llvm_12
     llvmPackages_12.bintools
+    manpages
     parallel
+    config.boot.kernelPackages.perf
     direnv
     git
     rustup
