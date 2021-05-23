@@ -1,11 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./zerotier-configuration.nix
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./zerotier-configuration.nix
+  ];
 
   ########################################
   # Nix
@@ -20,9 +19,7 @@
       gnupg = pkgs.gnupg.override { libusb1 = pkgs.libusb1; };
 
       # Allow unstable.PackageName
-      unstable = import <nixos-unstable> {
-        config = config.nixpkgs.config;
-      };
+      unstable = import <nixos-unstable> { config = config.nixpkgs.config; };
     };
   };
 
@@ -30,8 +27,7 @@
   environment.etc.current-nixos-config.source = ./.;
 
   # Include a full list of installed packages
-  environment.etc.current-system-packages.text =
-  let
+  environment.etc.current-system-packages.text = let
     packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
     sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.unique packages);
     formatted = builtins.concatStringsSep "\n" sortedUnique;
@@ -49,12 +45,12 @@
     opengl = {
       enable = true;
       extraPackages = with pkgs; [
-	intel-compute-runtime
+        intel-compute-runtime
         # LIBVA_DRIVER_NAME=iHD (newer)
-	intel-media-driver
+        intel-media-driver
         # LIBVA_DRIVER_NAME=i965
-	vaapiIntel
-	vaapiVdpau
+        vaapiIntel
+        vaapiVdpau
       ];
     };
   };
@@ -87,10 +83,10 @@
   networking = {
     hostName = "dn";
     hostId = "822380ad";
-    networkmanager.enable = true;
+    interfaces.wlan0.useDHCP = true;
     usePredictableInterfaceNames = false;
-    useDHCP = false;  # deprecated
-    wireless.enable = false;
+    useDHCP = false; # deprecated
+    wireless.iwd.enable = true;
   };
 
   services.resolved.enable = true;
@@ -100,7 +96,7 @@
   ########################################
   # Enable sound.
   sound.enable = true;
-  security.rtkit.enable = true;  # for pipewire
+  security.rtkit.enable = true; # for pipewire
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -151,7 +147,6 @@
     #KeepFree=
   '';
 
-
   ########################################
   # Fonts
   ########################################
@@ -159,13 +154,9 @@
     fonts = with pkgs; [
       fira-code
       fira-code-symbols
-      font-awesome  # Used by waybar
+      font-awesome # Used by waybar
     ];
-    fontconfig = {
-      defaultFonts = {
-        monospace = [ "Fira Code" ];
-      };
-    };
+    fontconfig = { defaultFonts = { monospace = [ "Fira Code" ]; }; };
   };
 
   ########################################
@@ -176,11 +167,7 @@
   users.users.kenny = {
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = [
-      "docker"
-      "networkmanager"
-      "wheel"
-    ];
+    extraGroups = [ "docker" "networkmanager" "wheel" ];
   };
 
   ########################################
@@ -222,7 +209,7 @@
     libva-utils
     p7zip
     pass
-    pulseaudio  # for pactl to adjust volume, other options?
+    pulseaudio # for pactl to adjust volume, other options?
     tmux
     xdg-utils
     yubikey-manager
@@ -251,6 +238,6 @@
     direnv
     git
     rustup
-    vscode-fhs  # TODO: build with extensions
+    vscode-fhs # TODO: build with extensions
   ];
 }
