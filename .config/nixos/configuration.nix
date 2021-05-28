@@ -83,13 +83,21 @@
   networking = {
     hostName = "dn";
     hostId = "822380ad";
-    interfaces.wlan0.useDHCP = true;
+    networkmanager = {
+      enable = true;
+      wifi.backend = "iwd";
+    };
     usePredictableInterfaceNames = false;
     useDHCP = false; # deprecated
+    wireless.enable = false;
     wireless.iwd.enable = true;
   };
 
-  services.resolved.enable = true;
+  services.resolved = {
+    enable = true;
+    # Set a fallback to prevent ipv6 dns lookups
+    fallbackDns = [ "8.8.8.8" ];
+  };
 
   ########################################
   # Sound
@@ -107,15 +115,21 @@
   ########################################
   # Desktop Environment
   ########################################
+  programs.qt5ct.enable = true;
   programs.sway = {
     enable = true;
     extraPackages = with pkgs; [
+      grim # screenshot
+      networkmanagerapplet
+      papirus-icon-theme
+      slurp # select area for screenshot
       swayidle
       swaylock
       waybar
       wl-clipboard
       wofi
       xwayland
+      wdisplays
     ];
   };
   programs.waybar.enable = true;
@@ -124,11 +138,12 @@
   # Services
   ########################################
   services = {
-    pcscd.enable = true;
     fwupd.enable = true;
-    zerotierone.enable = true;
     openssh.enable = false;
+    pcscd.enable = true;
+    tlp.enable = true;
     udev.packages = [ pkgs.yubikey-personalization ];
+    zerotierone.enable = true;
   };
 
   ########################################
@@ -188,6 +203,15 @@
   };
 
   ########################################
+  # Security
+  ########################################
+  programs.browserpass.enable = true;
+  programs.firejail = {
+    enable = true;
+    wrappedBinaries = { teams = "${lib.getBin pkgs.teams}/bin/teams"; };
+  };
+
+  ########################################
   # Packages
   ########################################
   environment.systemPackages = with pkgs; [
@@ -195,11 +219,11 @@
     aspell
     aspellDicts.en
     aspellDicts.en-computers
+    bc
     borgbackup
     brightnessctl
     chromium
-    firefox
-    fwupd
+    (firefox.override { forceWayland = true; })
     fzf
     google-chrome
     htop
@@ -208,31 +232,65 @@
     libusb1
     libva-utils
     p7zip
-    pass
+    pavucontrol
+    plocate
     pulseaudio # for pactl to adjust volume, other options?
+    python3
     tmux
     xdg-utils
+
+    # Password management
+    (pass.override {
+      x11Support = false;
+      waylandSupport = true;
+    })
+    qtpass
     yubikey-manager
     yubikey-personalization
 
+    # System management
+    fwupd
+    powertop
+    pstree
+    killall
+
+    # Networking
+    openconnect
+
     # Communication
+    irssi
     signal-desktop
     slack
-    sqlite
+    # teams -- Included in firejail
+    (weechat.override {
+      configure = { availablePlugins, ... }: {
+        # Only link with Python plugins
+        plugins = with availablePlugins; [ python ];
+        # `weechat` will auto load the following plugins:
+        scripts = with pkgs.weechatScripts; [ wee-slack weechat-matrix ];
+      };
+    })
+
+    # Email
+    mutt
+    w3m
+    urlview
 
     # Development
     any-nix-shell
     aws-adfs
     awscli2
+    config.boot.kernelPackages.bcc
     capnproto
-    clang_12
+    clang
+    direnv
     file
     gdb
     gnumake
     jq
-    llvm_12
-    llvmPackages_12.bintools
+    llvm
     manpages
+    nix-direnv
     parallel
     config.boot.kernelPackages.perf
     direnv
