@@ -236,9 +236,7 @@
     libusb1
     libva-utils
     p7zip
-    pavucontrol
     plocate
-    pulseaudio # for pactl to adjust volume, other options?
     python3
     tmux
     xdg-utils
@@ -251,6 +249,11 @@
     qtpass
     yubikey-manager
     yubikey-personalization
+
+    # Sound
+    pavucontrol
+    pamixer
+    pulseeffects-pw
 
     # System management
     fwupd
