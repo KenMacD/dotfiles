@@ -1,12 +1,33 @@
-Xft.dpi:                  270
+URxvt*font:               xft:DejaVu Sans Mono:pixelsize=14:antialias=true:hinting=true
+!URxvt*font:               xft:FuraCode Font:style=Regular:size=8
+!URxvt*font:               xft:FuraCode Font:style=Regular
+URxvt*scrollTtyOutput:    false
+URxvt*scrollWithBuffer:   true
+URxvt*scrollTtyKeypress:  true
+!URxvt*lineSpace:          1
+
+! From the Arch Wiki
+!Xft.dpi: 180
+!Xft.autohint: 0
+!Xft.lcdfilter:  lcddefault
+!Xft.hintstyle:  hintfull
+!Xft.hinting: 1
+!Xft.antialias: 1
+!Xft.rgba: rgb
+!
+
 Xcursor.theme:            whiteglass
-Xcursor.size:             32 
+Xcursor.size:             22
 
 ! Not quite right, but mostly works
-URxvt*termName:           xterm-256color
+!URxvt*termName:           xterm-256color
+
+!!!!! DARK !!!!!
 URxvt*foreground:         rgb:b2/b2/b2
 URxvt*background:         rgb:08/08/08
 
+*foreground:         rgb:b2/b2/b2
+*background:         rgb:08/08/08
 *color0:  #2E3436
 *color1:  #a40000
 *color2:  #4E9A06
@@ -23,13 +44,78 @@ URxvt*background:         rgb:08/08/08
 *color13: #AD7FA8
 *color14: #fcaf3e
 *color15: #EEEEEC
+!
+!!!!! LIGHT !!!!!
+
+!! PaperColour Theme
+!
+!URxvt.foreground: #4D4D4C
+!URxvt.background: #EEEEEE
+!
+!! black
+!URxvt.color0: #EDEDED
+!URxvt.color8: #969694
+!
+!!! red
+!URxvt.color1: #D7005F
+!URxvt.color9: #D7005F
+!
+!! green
+!URxvt.color2: #718C00
+!URxvt.color10: #718C00
+!
+! yellow / orange
+!URxvt.color3: #D75F00
+!URxvt.color11: #D75F00
+!
+! blue
+!
+!URxvt.color4: #4271AE
+!URxvt.color12: #4271AE
+!
+!! magenta
+!URxvt.color5: #8959A8
+!URxvt.color13: #8959A8
+!
+!! cyan
+!URxvt.color6: #3E999F
+!URxvt.color14: #3E999F
+!
+!! white
+!URxvt.color7: #4D4D4C
+!URxvt.color15: #F5F5F5
+
+!Xft.autohint: 0
+!Xft.lcdfilter:  lcddefault
+!Xft.hintstyle:  hintfull
+!Xft.hinting: 1
+!Xft.antialias: 1
+!Xft.rgba: rgb
 
 URxvt*scrollBar:          false
 URxvt*modifier:           mod4
-URxvt*font:               xft:Bitstream Vera Sans Mono:pixelsize=24
-URxvt*keysym.M-c:         perl:clipboard:copy
-URxvt*keysym.M-v:         perl:clipboard:paste
-URxvt*perl-ext-common:    default,clipboard
-URxvt*keysym.C-equal:     command:\033]710;xft:Bitstream Vera Sans Mono:pixelsize=28\007
-URxvt*keysym.C-0:         command:\033]710;xft:Bitstream Vera Sans Mono:pixelsize=24\007
-URxvt*keysym.C-minus:     command:\033]710;xft:Bitstream Vera Sans Mono:pixelsize=20\007
+
+!URxvt*font: xft:DejaVu Sans Mono:antialias=true:pixelsize=14
+!URxvt*boldFont: xft:DejaVu Sans Mono:style=bold:antialias=true:pixelsize=14
+!URxvt*italicFont: xft:DejaVu Sans Mono:style=italic:antialias=true:pixelsize=14
+!URxvt*boldItalicFont: xft:DejaVu Sans Mono:style=bolditalic:antialias=true:pixelsize=14
+
+
+!URxvt*font:               xft:Inconsolata:pixelsize=14
+!URxvt*font:               xft:Terminus:pixelsize=14
+!Inconsolata
+!URxvt*keysym.M-c:         perl:clipboard:copy
+!URxvt*keysym.M-v:         perl:clipboard:paste
+URxvt*keysym.M-c:         eval:selection_to_clipboard
+URxvt*keysym.M-v:         eval:paste_clipboard
+
+URxvt*keysym.M-S:         perl:keyboard-select:search
+URxvt*keysym.M-C:         perl:keyboard-select:activate
+
+URxvt*perl-ext-common:    default,keyboard-select,resize-font
+
+URxvt.resize-font.smaller: C-minus
+URxvt.resize-font.bigger: C-equal
+URxvt.resize-font.reset: C-plus
+URxvt.resize-font.show: C-question
+
