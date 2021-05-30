@@ -44,6 +44,7 @@
     firmware = with pkgs; [ wireless-regdb ];
     opengl = {
       enable = true;
+      driSupport = true; # for vulkan
       extraPackages = with pkgs; [
         intel-compute-runtime
         # LIBVA_DRIVER_NAME=iHD (newer)
@@ -54,6 +55,9 @@
       ];
     };
   };
+  # Force intel vulkan driver to prevent software rendering:
+  environment.variables.VK_ICD_FILENAMES =
+    "/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json";
 
   ########################################
   # Locale
