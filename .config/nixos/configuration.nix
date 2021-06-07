@@ -124,6 +124,7 @@
     enable = true;
     extraPackages = with pkgs; [
       grim # screenshot
+      libinput
       networkmanagerapplet
       papirus-icon-theme
       slurp # select area for screenshot
@@ -152,7 +153,6 @@
     fwupd.enable = true;
     openssh.enable = false;
     pcscd.enable = true;
-    tlp.enable = true;
     udev.packages = [ pkgs.yubikey-personalization ];
     zerotierone.enable = true;
   };
@@ -179,7 +179,6 @@
   fonts = {
     fonts = with pkgs; [
       fira-code
-      fira-code-symbols
       font-awesome # Used by waybar
     ];
     fontconfig = { defaultFonts = { monospace = [ "Fira Code" ]; }; };
@@ -262,12 +261,21 @@
     pamixer
     pulseeffects-pw
 
+    # Video
+    intel-gpu-tools
+    v4l_utils
+
+    # Graphics
+    glxinfo
+    mesa_glu
+
     # System management
     bcc
+    killall
     fwupd
+    nixfmt
     powertop
     pstree
-    killall
     turbostat
 
     # Networking
@@ -296,11 +304,12 @@
     any-nix-shell
     aws-adfs
     awscli2
-    capnproto
+    bintools
     clang
     direnv
     file
     gdb
+    gh
     gnumake
     jq
     llvm
