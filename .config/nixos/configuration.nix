@@ -97,11 +97,6 @@
     wireless.iwd.enable = true;
   };
 
-  services.resolved = {
-    enable = true;
-    # Set a fallback to prevent ipv6 dns lookups
-    fallbackDns = [ "8.8.8.8" ];
-  };
 
   ########################################
   # Sound
