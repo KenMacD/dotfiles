@@ -134,9 +134,16 @@
       wofi
       xwayland
       wdisplays
+
+      gtk-engine-murrine
+      gtk_engines
+      gsettings-desktop-schemas
+      lxappearance
+      gnome3.adwaita-icon-theme
     ];
   };
   programs.waybar.enable = true;
+  xdg.icons.enable = true;
 
   ########################################
   # Services
