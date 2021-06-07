@@ -72,7 +72,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.zfs.enableUnstable = true;
   boot.tmpOnTmpfs = true;
 
   ########################################
@@ -218,7 +219,7 @@
   ########################################
   # Packages
   ########################################
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; with config.boot.kernelPackages; [
     # General
     aspell
     aspellDicts.en
@@ -256,10 +257,12 @@
     pulseeffects-pw
 
     # System management
+    bcc
     fwupd
     powertop
     pstree
     killall
+    turbostat
 
     # Networking
     openconnect
@@ -287,7 +290,6 @@
     any-nix-shell
     aws-adfs
     awscli2
-    config.boot.kernelPackages.bcc
     capnproto
     clang
     direnv
@@ -299,7 +301,7 @@
     manpages
     nix-direnv
     parallel
-    config.boot.kernelPackages.perf
+    perf
     direnv
     git
     rustup
