@@ -74,6 +74,15 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.zfs.enableUnstable = true;
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    turbostat
+  ];
+  boot.kernelParams = [
+    "workqueue.power_efficient=1"
+    "battery.cache_time=10000"
+  ];
+  powerManagement.enable = true;
+
   boot.tmpOnTmpfs = true;
 
   ########################################
