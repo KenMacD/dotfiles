@@ -74,13 +74,9 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.zfs.enableUnstable = true;
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    turbostat
-  ];
-  boot.kernelParams = [
-    "workqueue.power_efficient=1"
-    "battery.cache_time=10000"
-  ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ turbostat ];
+  boot.kernelParams =
+    [ "workqueue.power_efficient=1" "battery.cache_time=10000" ];
   powerManagement.enable = true;
 
   boot.tmpOnTmpfs = true;
@@ -109,7 +105,6 @@
     enable = true;
     nssmdns = true;
   };
-
 
   ########################################
   # Sound
@@ -232,76 +227,76 @@
   ########################################
   # Packages
   ########################################
-  environment.systemPackages = with pkgs; with config.boot.kernelPackages; [
-    # General
-    aspell
-    aspellDicts.en
-    aspellDicts.en-computers
-    bc
-    borgbackup
-    brightnessctl
-    chromium
-    (firefox.override { forceWayland = true; })
-    fzf
-    google-chrome
-    htop
-    httpie
-    kitty
-    libusb1
-    libva-utils
-    p7zip
-    plocate
-    python3
-    tmux
-    xdg-utils
+  environment.systemPackages = with pkgs;
+    with config.boot.kernelPackages; [
+      # General
+      aspell
+      aspellDicts.en
+      aspellDicts.en-computers
+      bc
+      borgbackup
+      brightnessctl
+      chromium
+      (firefox.override { forceWayland = true; })
+      fzf
+      google-chrome
+      htop
+      httpie
+      kitty
+      libusb1
+      libva-utils
+      p7zip
+      plocate
+      python3
+      tmux
+      xdg-utils
 
-    # Password management
-    (pass.override {
-      x11Support = false;
-      waylandSupport = true;
-    })
-    qtpass
-    yubikey-manager
-    yubikey-personalization
+      # Password management
+      (pass.override {
+        x11Support = false;
+        waylandSupport = true;
+      })
+      qtpass
+      yubikey-manager
+      yubikey-personalization
 
-    # Sound
-    cmus
-    pavucontrol
-    pamixer
-    pulseeffects-pw
+      # Sound
+      cmus
+      pavucontrol
+      pamixer
+      pulseeffects-pw
 
-    # Video
-    intel-gpu-tools
-    v4l_utils
+      # Video
+      intel-gpu-tools
+      v4l_utils
 
-    # Graphics
-    glxinfo
-    mesa_glu
+      # Graphics
+      glxinfo
+      mesa_glu
 
-    # System management
-    bcc
-    polkit_gnome
-    iotop
-    killall
-    fwupd
-    nixfmt
-    powertop
-    pstree
-    turbostat
+      # System management
+      bcc
+      polkit_gnome
+      iotop
+      killall
+      fwupd
+      nixfmt
+      powertop
+      pstree
+      turbostat
 
-    # Networking
-    openconnect
+      # Networking
+      openconnect
 
-    # Communication
-    irssi
-    signal-desktop
-    slack
-    # teams -- Included in firejail
-    (weechat.override {
-      configure = { availablePlugins, ... }: {
-        plugins = with availablePlugins; [ python ];
-        scripts =
-          with pkgs.weechatScripts; [
+      # Communication
+      irssi
+      signal-desktop
+      slack
+      # teams -- Included in firejail
+      (weechat.override {
+        configure = { availablePlugins, ... }: {
+          plugins = with availablePlugins; [ python ];
+          scripts = with pkgs.weechatScripts; [
             (weechat-matrix.overridePythonAttrs (oldAttrs: rec {
               version = "d67821ae50dbfc86e9aa03709aa2a752aee705f6";
               src = fetchFromGitHub {
@@ -323,37 +318,39 @@
             weechat-autosort
             weechat-notify-send
           ];
-        extraBuildInputs =
-          [ availablePlugins.python.withPackages (_: [ pkgs.weechat-matrix ])];
-      };
-    })
+          extraBuildInputs = [
+            availablePlugins.python.withPackages
+            (_: [ pkgs.weechat-matrix ])
+          ];
+        };
+      })
 
-    # Email
-    mutt
-    w3m
-    urlview
+      # Email
+      mutt
+      w3m
+      urlview
 
-    # Development
-    any-nix-shell
-    aws-adfs
-    awscli2
-    bintools
-    clang
-    direnv
-    file
-    gdb
-    gh
-    gnumake
-    hotspot
-    jq
-    llvm
-    manpages
-    nix-direnv
-    parallel
-    perf
-    direnv
-    git
-    rustup
-    vscode-fhs # TODO: build with extensions
-  ];
+      # Development
+      any-nix-shell
+      aws-adfs
+      awscli2
+      bintools
+      clang
+      direnv
+      file
+      gdb
+      gh
+      gnumake
+      hotspot
+      jq
+      llvm
+      manpages
+      nix-direnv
+      parallel
+      perf
+      direnv
+      git
+      rustup
+      vscode-fhs # TODO: build with extensions
+    ];
 }
