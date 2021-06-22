@@ -226,7 +226,7 @@
   programs.browserpass.enable = true;
   programs.firejail = {
     enable = true;
-    wrappedBinaries = { teams = "${lib.getBin pkgs.teams}/bin/teams"; };
+    wrappedBinaries = { teams = "${pkgs.lib.getBin pkgs.teams}/bin/teams"; };
   };
 
   ########################################
