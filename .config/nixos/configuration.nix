@@ -265,6 +265,7 @@
     yubikey-personalization
 
     # Sound
+    cmus
     pavucontrol
     pamixer
     pulseeffects-pw
@@ -279,6 +280,8 @@
 
     # System management
     bcc
+    polkit_gnome
+    iotop
     killall
     fwupd
     nixfmt
@@ -319,6 +322,7 @@
     gdb
     gh
     gnumake
+    hotspot
     jq
     llvm
     manpages
