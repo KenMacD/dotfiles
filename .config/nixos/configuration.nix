@@ -105,6 +105,10 @@
     wireless.enable = false;
     wireless.iwd.enable = true;
   };
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+  };
 
 
   ########################################
