@@ -299,10 +299,32 @@
     # teams -- Included in firejail
     (weechat.override {
       configure = { availablePlugins, ... }: {
-        # Only link with Python plugins
         plugins = with availablePlugins; [ python ];
-        # `weechat` will auto load the following plugins:
-        scripts = with pkgs.weechatScripts; [ wee-slack weechat-matrix ];
+        scripts =
+          with pkgs.weechatScripts; [
+            (weechat-matrix.overridePythonAttrs (oldAttrs: rec {
+              version = "d67821ae50dbfc86e9aa03709aa2a752aee705f6";
+              src = fetchFromGitHub {
+                owner = "poljar";
+                repo = "weechat-matrix";
+                rev = "d67821ae50dbfc86e9aa03709aa2a752aee705f6";
+                sha256 = "01zisps5fx4i3vkrir8k04arcqf0n5i84a4nf0m9c2k48312dzf6";
+              };
+            }))
+            (wee-slack.overrideAttrs (oldAttrs: rec {
+              version = "2.7.0";
+              src = fetchFromGitHub {
+                repo = "wee-slack";
+                owner = "KenMacD";
+                rev = "bed1747daeca0151d3b5d1543f8e2529b4e423e8";
+                sha256 = "19aizpn1qfar05jqgx2kmjjwml6a8gnhi570fxyqc1zpcy12wjqk";
+              };
+            }))
+            weechat-autosort
+            weechat-notify-send
+          ];
+        extraBuildInputs =
+          [ availablePlugins.python.withPackages (_: [ pkgs.weechat-matrix ])];
       };
     })
 
